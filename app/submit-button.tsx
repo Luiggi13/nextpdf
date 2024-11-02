@@ -3,29 +3,23 @@
 import { GetSignedUrl, SetCors } from "./lib/actions";
 
 function UploadSignedUrl() {
-    const HandleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const HandleSubmit = async (event: FormData) => {
         await SetCors();
-        const form = event.currentTarget;
-        const data = new FormData(form);
-        const file = data.get('file') as File;
+        const file = event.get('file') as File;
         const url = await GetSignedUrl(file.name);
-        console.log(url);
 
-        const response = await fetch(url, {
+        await fetch(url, {
             method: 'PUT',
             body: file,
             headers: {
                 'Content-Type': 'application/octet-stream',
             },
         });
-
-        console.log(response.ok);
     };
     return (
         <>
-            <h1 className='text-gray-600 text-xl m-8'>Upload Using Signed URL</h1>
-            <form onSubmit={HandleSubmit}>
+            <h1 className='text-gray-600 text-xl m-8'>Upload file</h1>
+            <form action={HandleSubmit}>
                 <input type='file' name='file' />
                 <button
                     type='submit'

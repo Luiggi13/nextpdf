@@ -1,4 +1,3 @@
-import CorsSetButton from "./cors-button";
 import UploadSignedUrl from "./submit-button";
 
 export default function Home() {
@@ -7,9 +6,6 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <UploadSignedUrl />
-        </div>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <CorsSetButton />
         </div>
       </main>
     </div>
