@@ -23,6 +23,7 @@ export const GetSignedUrl = async (fileName: string) => {
       }
     );
 
+  console.clear();
   return url;
 }
 
@@ -36,4 +37,5 @@ export const SetCors = async () => {
       responseHeader: ['Content-Type'],
     },
   ]);
+  console.clear();
 }

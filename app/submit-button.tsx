@@ -1,20 +1,41 @@
 'use client'
-
 import { GetSignedUrl, SetCors } from "./lib/actions";
+import { useRef } from 'react';
+import React from 'react';
 
 function UploadSignedUrl() {
+    const linkRef = useRef(null);
+	const handleDownload = async (filename: string) => {
+		const response = await fetch(filename);
+		const blob = await response.blob();
+		const url = window.URL.createObjectURL(blob);
+		const link = linkRef.current as HTMLAnchorElement | null
+
+		if (!link) return
+
+		link.href = url;
+		link.download = filename; // Any name you want to download the file as
+		link.click();
+		window.URL.revokeObjectURL(url);
+		link.href = '';
+		link.download = ''
+	}
     const HandleSubmit = async (event: FormData) => {
         await SetCors();
         const file = event.get('file') as File;
-        const url = await GetSignedUrl(file.name);
+        const urls = await GetSignedUrl(file.name);
 
-        await fetch(url, {
+        const { url } = await fetch(urls, {
             method: 'PUT',
             body: file,
             headers: {
                 'Content-Type': 'application/octet-stream',
             },
         });
+        if(url) {
+            handleDownload(url.split('?')[0])
+        }
+        window.location.reload();
     };
     return (
         <>
@@ -28,6 +49,7 @@ function UploadSignedUrl() {
                     Upload
                 </button>
             </form>
+            <a ref={linkRef} download className="hidden" ></a>
         </>
     )
 }
