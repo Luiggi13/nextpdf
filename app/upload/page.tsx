@@ -29,6 +29,8 @@ export default function Upload() {
       handleDownload(url.split('?')[0])
     }
     setShowOverlay(false);
+    setSelected(undefined);
+    setIsPDF(false);
   };
 
   const handleDownload = async (filename: string) => {
