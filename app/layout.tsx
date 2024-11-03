@@ -12,7 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
+      <link rel="icon" type="image/svg" sizes="32x32" href="/favicon.svg"></link>
       <body
         className="antialiased"
       >
