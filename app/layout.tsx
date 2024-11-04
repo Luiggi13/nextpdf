@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SideBarMenu from "./components/SidebarMenu";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,10 @@ export default function RootLayout({
       <body
         className="antialiased"
       >
+                <div className="w-full flex gap-4">
+                  <SideBarMenu />
         {children}
+                </div>
       </body>
     </html>
   );
